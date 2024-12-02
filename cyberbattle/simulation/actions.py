@@ -318,6 +318,10 @@ class AgentActions:
         """Return all nodes with at least the specified privilege level"""
         return [n for n, info in self._environment.nodes() if info.privilege_level >= level]
 
+    def get_real_node_with_atleast_privilegelevel(self, level: PrivilegeLevel) -> List[model.NodeID]:
+        """Return all nodes with at least the specified privilege level"""
+        return [n for n, info in self._environment.nodes() if info.privilege_level >= level and info.is_real]
+
     def is_node_discovered(self, node_id: model.NodeID) -> bool:
         """Returns true if previous actions have revealed the specified node ID"""
         return node_id in self._discovered_nodes
