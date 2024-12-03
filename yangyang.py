@@ -1,4 +1,4 @@
-CyberBattleToyCtf-v0#!/usr/bin/python3.9
+#CyberBattleToyCtf-v0#!/usr/bin/python3.9
 
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.

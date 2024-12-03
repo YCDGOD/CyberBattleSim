@@ -183,6 +183,7 @@ nodes = {
     ),
     #"""honeypot可以连接,第一次-100,里面是密标和密链"""
     "honeypot":m.NodeInfo(
+
         services=[m.ListeningService("HTTPS",allowedCredentials=["honeypot_credentials"])],
         value = -100,
         vulnerabilities=dict(
@@ -201,16 +202,19 @@ nodes = {
                 cost=1.0,
             ),
         ),
+        is_real= False
     ),
     "dummyMachine":m.NodeInfo(
         services=[],
         value = 0,
+        is_real= False
     ),
     """decay可以尝试连接，但总会连接失败,第一次尝试连接-100,之后-1"""
     "decay":m.NodeInfo(
         services=[m.ListeningService("HTTPS",allowedCredentials=["honey"])],
         owned_string="连接到了诱饵",
         value = -100,
+        is_real= False
     ),
     "client": m.NodeInfo(
         services=[],

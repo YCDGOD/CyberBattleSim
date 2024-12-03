@@ -238,7 +238,9 @@ class AttackerGoal(NamedTuple):
     own_atleast: int = 0
     # Include goal to own at least the specified percentage of the network nodes.
     # Set to 1.0 to define goal as the ownership of all network nodes.
-    own_atleast_percent: float = 1.0
+    own_atleast_percent: float = 0.0
+    #加入欺骗后需要真实节点
+    own_atleast_real_percent: float = 0.0
 
 
 class DefenderGoal(NamedTuple):
@@ -376,6 +378,7 @@ class CyberBattleEnv(CyberBattleSpaceKind):
         self.__environment: model.Environment = copy.deepcopy(self.__initial_environment)
         self.__discovered_nodes: List[model.NodeID] = []
         self.__owned_nodes_indices_cache: Optional[List[int]] = None
+        #加入真实节点缓存
         self.__owned_real_nodes_indices_cache: Optional[List[int]] = None
         self.__credential_cache: List[model.CachedCredential] = []
         self.__episode_rewards: List[float] = []
@@ -475,7 +478,8 @@ class CyberBattleEnv(CyberBattleSpaceKind):
         maximum_node_count: int =  100,
         maximum_discoverable_credentials_per_action: int = 5,
         defender_agent: Optional[DefenderAgent] = None,
-        attacker_goal: Optional[AttackerGoal] = AttackerGoal(own_atleast_percent=1.0),
+        #默认节点都为真实所以own_atleast_real_percent运用更为广泛
+        attacker_goal: Optional[AttackerGoal] = AttackerGoal(own_atleast_real_percent= 1.0),
         defender_goal=DefenderGoal(eviction=True),
         defender_constraint=DefenderConstraint(maintain_sla=0.0),
         winning_reward=5000.0,
@@ -1104,12 +1108,15 @@ class CyberBattleEnv(CyberBattleSpaceKind):
 
         if owned_count < goal.own_atleast:
             return False
-        """if owned_count / self.__node_count < goal.own_atleast_percent:
-            return False"""
 
         #胜利条件
-        if owned_real_count / self.__real_node_count < goal.own_atleast_percent:
+        if owned_real_count / self.__real_node_count < goal.own_atleast_real_percent:
             return False
+
+        if owned_count / self.__node_count < goal.own_atleast_percent:
+            return False
+
+
         if self.__defender_agent is not None and self._defender_actuator.network_availability >= goal.low_availability:
             return False
 

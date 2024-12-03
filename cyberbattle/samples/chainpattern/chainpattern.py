@@ -143,6 +143,7 @@ def create_network_chain_link(n: int) -> Dict[NodeID, NodeInfo]:
                     cost=1.0,
                 ),
             ),
+            is_real=True
         ),
         next("WindowsNode"): m.NodeInfo(
             services=[m.ListeningService("HTTPS"), m.ListeningService("RDP", allowedCredentials=[rdp_password(n + 1)])],
@@ -191,6 +192,7 @@ def create_network_chain_link(n: int) -> Dict[NodeID, NodeInfo]:
                     cost=1.0,
                 ),
             ),
+            is_real=True
         ),
     }
 
@@ -220,6 +222,7 @@ def create_chain_network(size: int) -> Dict[NodeID, NodeInfo]:
                     cost=1.0,
                 )
             ),
+            is_real=True,
             agent_installed=True,
             reimagable=False,
         ),
@@ -229,6 +232,7 @@ def create_chain_network(size: int) -> Dict[NodeID, NodeInfo]:
             owned_string="FLAG: flag discovered!",
             properties=["MySql", "Ubuntu", "nginx/1.10.3", "FLAG:Linux"],
             vulnerabilities=dict(),
+            is_real=True
         ),
     }
 

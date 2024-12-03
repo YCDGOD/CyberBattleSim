@@ -9,30 +9,11 @@ import pytest
 import gymnasium as gym
 import numpy as np
 from typing import cast
-from cyberbattle.simulation import model as m
-from cyberbattle.samples.toyctf.yangyang_toy_deception import nodes,global_vulnerability_library,ENV_IDENTIFIERS
-# def test_total_realnodes():
-#     a=m.Environment(network=m.create_network(nodes), vulnerability_library=global_vulnerability_library, identifiers=ENV_IDENTIFIERS)
-#     b=a.get_nodes_with_real()
-#     print(b)
 
-
-
-# def test_getrealnodes() -> None:
-#     """Run a few iterations of the gym environment"""
-#     env = cast(CyberBattleEnv, gym.make("CyberBattleDeception-v0"))
-
-#     a=env.get__owned_real_nodes_indices()
-#     print("daying a",a)  # 如果 a 是生成器或懒加载的内容
-#     print("yy")
-#     print("adechangdu",len(a))
-
-#     env.close()
-#     pass
 
 def test_few_gym_iterations() -> None:
     """Run a few iterations of the gym environment"""
-    env = cast(CyberBattleEnv, gym.make("CyberBattleDeception-v0"))
+    env = cast(CyberBattleEnv, gym.make("CyberBattleToyCtf-v0"))
 
     for _ in range(2):
         env.reset()
