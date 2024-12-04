@@ -2,6 +2,7 @@
 # Licensed under the MIT License.
 
 """Test the CyberBattle Gym environment"""
+from typing import List
 
 from cyberbattle._env.option_wrapper import ContextWrapper, random_options
 from cyberbattle._env.cyberbattle_env import AttackerGoal, CyberBattleEnv
@@ -11,24 +12,37 @@ import numpy as np
 from typing import cast
 from cyberbattle.simulation import model as m
 from cyberbattle.samples.toyctf.yangyang_toy_deception import nodes,global_vulnerability_library,ENV_IDENTIFIERS
-# def test_total_realnodes():
-#     a=m.Environment(network=m.create_network(nodes), vulnerability_library=global_vulnerability_library, identifiers=ENV_IDENTIFIERS)
-#     b=a.get_nodes_with_real()
-#     print(b)
+from cyberbattle.samples.toyctf import yangyang_toy_deception
+
+from ..samples.toyctf import yangyang_toy_deception
+def test_total_realnodes():
+    a=m.Environment(network=m.create_network(nodes), vulnerability_library=global_vulnerability_library, identifiers=ENV_IDENTIFIERS)
+    b=a.get_nodes_with_real()
+    print(b)
 
 
 
-# def test_getrealnodes() -> None:
-#     """Run a few iterations of the gym environment"""
-#     env = cast(CyberBattleEnv, gym.make("CyberBattleDeception-v0"))
+class TestCyberBattleEnv(CyberBattleEnv):
+    def get_owned_real_nodes_indices(self) -> List[int]:
+        # 通过继承的方式调用父类中的私有方法
+        return self._CyberBattleEnv__get__owned_real_nodes_indices()
 
-#     a=env.get__owned_real_nodes_indices()
-#     print("daying a",a)  # 如果 a 是生成器或懒加载的内容
-#     print("yy")
-#     print("adechangdu",len(a))
+def test_getrealnodes() -> None:
+    """Run a few iterations of the gym environment"""
 
-#     env.close()
-#     pass
+    # 使用你的自定义环境类来创建环境实例，而不是 gym.make
+    env = TestCyberBattleEnv(initial_environment=yangyang_toy_deception.new_environment())  # 直接创建 TestCyberBattleEnv 实例
+
+    # 通过公有方法访问私有属性
+    a = env.get_owned_real_nodes_indices()
+    print("daying a", a)
+    print("yy")
+    print("adechangdu", len(a))
+
+    env.close()
+
+
+
 
 def test_few_gym_iterations() -> None:
     """Run a few iterations of the gym environment"""

@@ -47,8 +47,8 @@ if "CyberBattleDeception-v0" in registry:
 register(
     id="CyberBattleDeception-v0",
     cyberbattle_env_identifiers=yangyang_toy_deception.ENV_IDENTIFIERS,
-    entry_point="cyberbattle._env.cyberbattle_deception:CyberBattleYang",
-    kwargs={"defender_agent": None, "attacker_goal": AttackerGoal(own_atleast=6), "defender_goal": DefenderGoal(eviction=True)},
+    entry_point="cyberbattle._env.cyberbattle_deception:CyberBattleDeception",
+    kwargs={"defender_agent": None,  "defender_goal": DefenderGoal(eviction=True)},
     # max_episode_steps=2600,
 )
 

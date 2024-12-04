@@ -56,7 +56,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.ERROR, format="%(levelname)
 print(f"torch cuda available={torch.cuda.is_available()}")
 
 cyberbattlechain = cast(
-    CyberBattleEnv, gym.make("CyberBattleDeception-v0", attacker_goal=cyberbattle_env.AttackerGoal(own_atleast_percent=args.ownership_goal, reward=args.reward_goal))
+    CyberBattleEnv, gym.make("CyberBattleDeception-v0", attacker_goal=cyberbattle_env.AttackerGoal(own_atleast_real_percent =args.ownership_goal, reward=args.reward_goal))
 )
 
 ep = w.EnvironmentBounds.of_identifiers(maximum_total_credentials=60, maximum_node_count=60, identifiers=cyberbattlechain.identifiers)
