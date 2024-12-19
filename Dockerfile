@@ -5,6 +5,10 @@
 # mcr.microsoft.com/azureml/onnxruntime:latest-cuda
 FROM mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu22.04
 
+# 设置pip使用清华镜像
+ENV PIP_INDEX_URL https://pypi.tuna.tsinghua.edu.cn/simple
+
+
 WORKDIR /root
 ADD *.sh ./
 ADD *.txt ./
