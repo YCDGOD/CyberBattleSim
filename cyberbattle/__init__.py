@@ -10,6 +10,7 @@ from . import agents
 from ._env.cyberbattle_env import AttackerGoal, DefenderGoal
 from .samples.chainpattern import chainpattern
 from .samples.toyctf import toy_ctf
+from .samples.toyctf import yangyang_toy_deception
 from .simulation import generate_network, model
 
 __all__ = (
@@ -34,7 +35,7 @@ def register(id: str, cyberbattle_env_identifiers: model.Identifiers, **kwargs):
 
     registry.env_specs[id] = spec
 
-
+#CyberBattleToyCtf-v0
 if 'CyberBattleToyCtf-v0' in registry.env_specs:
     del registry.env_specs['CyberBattleToyCtf-v0']
 
@@ -46,6 +47,19 @@ register(
             'attacker_goal': AttackerGoal(own_atleast=6),
             'defender_goal': DefenderGoal(eviction=True)
             },
+    # max_episode_steps=2600,
+)
+
+
+#加入欺骗
+if "CyberBattleDeception-v0" in registry.env_specs:
+    del registry.env_specs["CyberBattleDeception-v0"]
+
+register(
+    id="CyberBattleDeception-v0",
+    cyberbattle_env_identifiers=yangyang_toy_deception.ENV_IDENTIFIERS,
+    entry_point="cyberbattle._env.cyberbattle_deception:CyberBattleDeception",
+    kwargs={"defender_agent": None, "attacker_goal": AttackerGoal(own_atleast=6), "defender_goal": DefenderGoal(eviction=True)},
     # max_episode_steps=2600,
 )
 

@@ -317,6 +317,8 @@ class NodeInfo:
     # Relative node weight used to calculate the cost of stopping this machine
     # or its services
     sla_weight: float = 1.0
+    #是否为真实在真实或者欺骗资产
+    is_real: bool = True
 
 
 class Identifiers(NamedTuple):
@@ -361,6 +363,11 @@ class Environment(NamedTuple):
         """Retrieve info for the node with the specified ID"""
         node_info: NodeInfo = self.network.nodes[node_id]['data']
         return node_info
+    
+    def get_nodes_with_real(self):
+        #获取真实节点总数
+        return  [n for n, info in self.nodes() if info.is_real]
+
 
     def plot_environment_graph(self) -> None:
         """Plot the full environment graph"""
