@@ -202,21 +202,21 @@ nodes = {
                 cost=1.0,
             ),
         ),
-        is_real= False
-        is_honeypot_or_decoy = True
+        is_real= False,
+        is_honeypot_or_decoy = True,
     ),
     "dummyMachine":m.NodeInfo(
         services=[],
         value = 0,
-        is_real= False
+        is_real= False,
     ),
     """decay可以尝试连接，但总会连接失败,第一次尝试连接-100,之后-1"""
     "decoy":m.NodeInfo(
         services=[m.ListeningService("HTTPS",allowedCredentials=["decoy_credentials"])],
         owned_string="连接到了诱饵",
         value = 0,
-        is_real= False
-        is_honeypot_or_decoy = True
+        is_real= False,
+        is_honeypot_or_decoy = True,
     ),
     "client": m.NodeInfo(
         services=[],
