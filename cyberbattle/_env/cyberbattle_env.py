@@ -458,6 +458,8 @@ class CyberBattleEnv(gym.Env):
                 # (by index of discovery: 0 for initial node, 1 for first discovered node, ...)
                 [maximum_node_count, maximum_node_count, port_count, maximum_total_credentials])
         }
+        print(f"Action Spaces: {action_spaces}")
+        print(f"Action Space Types: {[type(v) for v in action_spaces.values()]}")
 
         self.action_space = DiscriminatedUnion(cast(dict, action_spaces))  # type: ignore
 

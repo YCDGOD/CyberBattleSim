@@ -360,6 +360,14 @@ class AgentActions:
 
         reward -= vulnerability.cost
 
+        # ✅ Honeypot 惩罚逻辑（区分首次和重复攻击）
+        if node_info.is_honeypot_or_decoy:
+            if already_executed:
+                reward += 0
+            else:
+                reward += -100  # 首次攻击蜜罐重罚
+
+
         logger.info("GOT REWARD: " + vulnerability.reward_string)
         return True, ActionResult(reward=reward, outcome=outcome)
 

@@ -319,6 +319,8 @@ class NodeInfo:
     sla_weight: float = 1.0
     #是否为真实在真实或者欺骗资产
     is_real: bool = True
+    #是否为蜜罐或者诱饵
+    is_honeypot_or_decoy : bool = False
 
 
 class Identifiers(NamedTuple):

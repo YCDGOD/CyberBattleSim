@@ -185,12 +185,12 @@ nodes = {
     "honeypot":m.NodeInfo(
 
         services=[m.ListeningService("HTTPS",allowedCredentials=["honeypot_credentials"])],
-        value = -100,
+        value = 0,
         vulnerabilities=dict(
             searchHoneytokens=m.VulnerabilityInfo(
                description="honeylink",
                 type=m.VulnerabilityType.REMOTE,
-                outcome=m.LeakedCredentials(credentials=[m.CachedCredential(node="AzureResourceManager", port="HTTPS", credential="honey")]),
+                outcome=m.LeakedCredentials(credentials=[m.CachedCredential(node="decoy", port="HTTPS", credential="decoy_credentials")]),
                 reward_string="Web browser history revealed website URL of interest",
                 cost=1.0,
             ),
@@ -203,6 +203,7 @@ nodes = {
             ),
         ),
         is_real= False
+        is_honeypot_or_decoy = True
     ),
     "dummyMachine":m.NodeInfo(
         services=[],
@@ -210,11 +211,12 @@ nodes = {
         is_real= False
     ),
     """decay可以尝试连接，但总会连接失败,第一次尝试连接-100,之后-1"""
-    "decay":m.NodeInfo(
-        services=[m.ListeningService("HTTPS",allowedCredentials=["honey"])],
+    "decoy":m.NodeInfo(
+        services=[m.ListeningService("HTTPS",allowedCredentials=["decoy_credentials"])],
         owned_string="连接到了诱饵",
-        value = -100,
+        value = 0,
         is_real= False
+        is_honeypot_or_decoy = True
     ),
     "client": m.NodeInfo(
         services=[],
