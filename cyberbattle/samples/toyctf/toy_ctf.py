@@ -26,7 +26,7 @@ nodes = {
                                          outgoing=default_allow_rules + [
                                              m.FirewallRule("su", m.RulePermission.ALLOW),
                                              m.FirewallRule("sudo", m.RulePermission.ALLOW)]),
-        value=100,
+        value=1000,
         # If can SSH into server then gets FLAG "Shared credentials with
         # database user"
         properties=["MySql", "Ubuntu", "nginx/1.10.3"],
@@ -61,7 +61,7 @@ nodes = {
 
     "Website.Directory": m.NodeInfo(
         services=[m.ListeningService("HTTPS")],
-        value=50,
+        value=1000,
         properties=["Ubuntu", "nginx/1.10.3",
                     "CTFFLAG:Readme.txt-Discover secret data"
                     ],
@@ -92,7 +92,7 @@ nodes = {
         services=[m.ListeningService("SSH", allowedCredentials=[]),
                   m.ListeningService("SSH-key", allowedCredentials=["unkownkey"]),
                   m.ListeningService("su", allowedCredentials=["monitorBashCreds"])],
-        value=100,
+        value=1000,
         properties=["MySql", "Ubuntu", "nginx/1.10.3"],
         owned_string="FLAG User escalation by stealing credentials from bash history",
         firewall=m.FirewallConfiguration(
@@ -120,7 +120,7 @@ nodes = {
 
     "GitHubProject": m.NodeInfo(
         services=[m.ListeningService("GIT")],
-        value=10,
+        value=1000,
         properties=["GitHub", "SasUrlInCommit"],
         vulnerabilities=dict(
             CredScanGitHistory=m.VulnerabilityInfo(
@@ -142,7 +142,7 @@ nodes = {
     "AzureStorage": m.NodeInfo(
         services=[
             m.ListeningService("HTTPS", allowedCredentials=["SASTOKEN1"])],
-        value=50,
+        value=1000,
         properties=["CTFFLAG:LeakedCustomerData"],
         vulnerabilities=dict(
             AccessDataWithSASToken=m.VulnerabilityInfo(
@@ -158,7 +158,7 @@ nodes = {
 
     'Sharepoint': m.NodeInfo(
         services=[m.ListeningService("HTTPS")],
-        value=100,
+        value=1000,
         properties=["SharepointLeakingPassword"],
         firewall=m.FirewallConfiguration(incoming=[m.FirewallRule("SSH", m.RulePermission.ALLOW),
                                                    m.FirewallRule("HTTP", m.RulePermission.ALLOW),
@@ -181,7 +181,7 @@ nodes = {
     'AzureResourceManager': m.NodeInfo(
         services=[m.ListeningService("HTTPS", allowedCredentials=["ADPrincipalCreds", "azuread_user_credentials"])],
         owned_string="FLAG: Shared credentials with database user - Obtained secrets hidden in Azure Managed Resources",
-        value=50,
+        value=1000,
         properties=["CTFFLAG:LeakedCustomerData2"],
         vulnerabilities=dict(
             ListAzureResources=m.VulnerabilityInfo(
@@ -195,14 +195,14 @@ nodes = {
     'AzureResourceManager[user=monitor]': m.NodeInfo(
         services=[m.ListeningService("HTTPS", allowedCredentials=["azuread_user_credentials"])],
         owned_string="More secrets stolen when logged as interactive `monitor` user in Azure with `az`",
-        value=50,
+        value=1000,
         properties=[],
     ),
 
     'AzureVM': m.NodeInfo(
         services=[m.ListeningService("PING"),
                   m.ListeningService("SSH")],
-        value=100,
+        value=1000,
         properties=["CTFFLAG:VMPRIVATEINFO"],
         firewall=m.FirewallConfiguration(
             incoming=[m.FirewallRule("SSH", m.RulePermission.BLOCK,
